@@ -1,4 +1,4 @@
-# 🚌 Terminal Central de Transporte - Logic Solutions
+# 🚌 Terminal Central de Transporte
 
 Este repositorio contiene la **Actividad 3 – Proyecto Integrador**, desarrollado por el equipo de **Logic Solutions**. Consiste en un portal web centralizado que unifica distintos medios de transporte y facilita la consulta de recorridos a lo largo de Argentina, integrando los proyectos individuales de cada uno de los 5 miembros del equipo.
 
