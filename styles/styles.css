@@ -834,6 +834,106 @@ footer {
 footer a { color: var(--orange-brand); text-decoration: none; }
 
 /* =========================================
+   CARRUSEL DE MAPAS
+   ========================================= */
+.mapa-carrusel {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.mapa-carrusel-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-light);
+}
+
+.mapa-imagen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.mapa-imagen.active {
+    opacity: 1;
+}
+
+.mapa-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mapa-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.mapa-controles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-light);
+}
+
+.mapa-btn {
+    background: var(--orange-brand);
+    border: none;
+    color: white;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.mapa-btn:hover {
+    background: var(--orange-brand-dark);
+    transform: scale(1.05);
+}
+
+.mapa-indicadores {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.mapa-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--border-color);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.mapa-dot.active {
+    background: var(--orange-brand);
+    transform: scale(1.2);
+}
+
+.mapa-dot:hover {
+    background: var(--orange-brand);
+}
+
+/* =========================================
    RESPONSIVE
    ========================================= */
 @media (max-width: 900px) {

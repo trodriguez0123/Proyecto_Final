@@ -26,6 +26,7 @@
             <hr>
             <span class="nav-section-label">Medios de Transporte</span>
             <a href="https://trodriguez0123.github.io/Proyecto_final_individual/" target="_blank"><i class="fa-solid fa-umbrella-beach"></i> Costa</a>
+            <a href="https://nmilagros.github.io/Proyecto_consultora_cordoba/" target="_blank"><i class="fa-solid fa-city"></i> Sierras de Córdoba</a>
             <a href="./transportes/sur.html"><i class="fa-solid fa-mountain"></i> Patagonia Sur</a>
             <a href="./transportes/noroeste.html"><i class="fa-solid fa-map"></i> Noroeste Argentino</a>
         </nav>
@@ -167,13 +168,28 @@
                         <p>Orientate dentro del edificio.</p>
                     </div>
                 </div>
-                <div class="mapa-placeholder">
-                    <i class="fa-regular fa-map"></i>
-                    <p>Mapa interactivo de la terminal</p>
-                    <span style="font-size:0.8rem; color:#94a3b8;">Planta baja · Primer piso · Segundo piso</span>
-                    <button class="btn btn-outline btn-sm" style="margin-top:0.5rem;" onclick="alert('El mapa interactivo estará disponible próximamente.')">
-                        <i class="fa-solid fa-expand"></i> Ver mapa completo
-                    </button>
+                <div class="mapa-carrusel">
+                    <div class="mapa-carrusel-container">
+                        <div class="mapa-imagen active" id="mapa-1">
+                            <img src="img/Planta_baja.png" alt="Planta Baja">
+                        </div>
+                        <div class="mapa-imagen" id="mapa-2">
+                            <img src="img/Primer_piso.png" alt="Primer Piso">
+                        </div>
+                    </div>
+                    
+                    <div class="mapa-controles">
+                        <button class="mapa-btn mapa-btn-prev" onclick="cambiarMapa(-1)">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <div class="mapa-indicadores">
+                            <span class="mapa-dot active" onclick="irAlMapa(0)"></span>
+                            <span class="mapa-dot" onclick="irAlMapa(1)"></span>
+                        </div>
+                        <button class="mapa-btn mapa-btn-next" onclick="cambiarMapa(1)">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
             </section>
         </div>
@@ -360,6 +376,35 @@ function mostrarTab(id) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
     event.target.classList.add('active');
+}
+
+// Carrusel de Mapas
+let mapaActual = 0;
+const totalMapas = 2;
+
+function cambiarMapa(direccion) {
+    mapaActual = (mapaActual + direccion + totalMapas) % totalMapas;
+    actualizarMapa();
+}
+
+function irAlMapa(indice) {
+    mapaActual = indice;
+    actualizarMapa();
+}
+
+function actualizarMapa() {
+    // Ocultar todos los mapas
+    document.querySelectorAll('.mapa-imagen').forEach(mapa => {
+        mapa.classList.remove('active');
+    });
+    // Ocultar todos los puntos
+    document.querySelectorAll('.mapa-dot').forEach(dot => {
+        dot.classList.remove('active');
+    });
+    
+    // Mostrar el mapa actual
+    document.getElementById('mapa-' + (mapaActual + 1)).classList.add('active');
+    document.querySelectorAll('.mapa-dot')[mapaActual].classList.add('active');
 }
 </script>
 </body>
