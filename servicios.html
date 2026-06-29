@@ -25,10 +25,10 @@
             <a href="servicios.html" class="active"><i class="fa-solid fa-bell-concierge"></i> Servicios</a>
             <hr>
             <span class="nav-section-label">Medios de Transporte</span>
-            <a href="https://trodriguez0123.github.io/Proyecto_final_individual/" target="_blank"><i class="fa-solid fa-umbrella-beach"></i> Costa</a>
-            <a href="https://nmilagros.github.io/Proyecto_consultora_cordoba/" target="_blank"><i class="fa-solid fa-city"></i> Sierras de Córdoba</a>
+            <a href="./transportes/costa.html"><i class="fa-solid fa-umbrella-beach"></i> Costa</a>
+            <a href="./transportes/cuyo.html"><i class="fa-solid fa-city"></i> Sierras de Córdoba</a>
             <a href="./transportes/sur.html"><i class="fa-solid fa-mountain"></i> Patagonia Sur</a>
-            <a href="./transportes/noroeste.html"><i class="fa-solid fa-map"></i> Noroeste Argentino</a>
+            <a href="./transportes/norte.html"><i class="fa-solid fa-map"></i> Noroeste Argentino</a>
             <a href="integrantes.html" class="sidebar-nav-bottom"><i class="fa-solid fa-users"></i> Integrantes</a>
         </nav>
     </aside>
@@ -363,6 +363,71 @@
             </section>
         </div>
 
+        <!-- SECCIÓN PREGUNTAS FRECUENTES (FAQs) -->
+        <section id="faqs" class="faq-block-wrapper">
+            <div class="faq-top-flex-row">
+                <div>
+                    <p class="section-subtitle-corporate">✉ Centro de Soporte al Pasajero</p>
+                    <h2 class="section-main-title">Preguntas Frecuentes</h2>
+                    <p class="section-main-desc">Resolvemos tus dudas sobre andenes, equipaje, pasajes y servicios exclusivos al destino que elijas.</p>
+                </div>
+                <div class="search-faq-bar">
+                    <span>🔍</span>
+                    <input type="text" placeholder="¿Qué estás buscando?..." id="faqSearchInput">
+                </div>
+            </div>
+
+            <div class="filters-horizontal-scroll" style="margin-bottom: 2rem;">
+                <button class="filter-pill-btn active" data-category="all" type="button">Todas las Preguntas</button>
+                <button class="filter-pill-btn" data-category="boleto" type="button">Boleto & Reservas</button>
+                <button class="filter-pill-btn" data-category="equipaje" type="button">Normas de Equipaje</button>
+                <button class="filter-pill-btn" data-category="servicio" type="button">Servicio a Bordo</button>
+                <button class="filter-pill-btn" data-category="terminal" type="button">Terminal BA</button>
+            </div>
+
+            <div class="accordion-rows-stack">
+                <div class="faq-accordion-item" data-category="terminal">
+                    <button class="faq-header-trigger" type="button">
+                        ¿Con cuánta anticipación debo llegar a la Terminal de Ómnibus?
+                        <span class="faq-arrow-icon">▼</span>
+                    </button>
+                    <div class="faq-body-dropdown">
+                        <div>Para servicios premium de BA, debés arribar al menos 45 minutos antes de la partida. Esto garantiza el correcto etiquetado de tu equipaje de bodega y la degustación de bienvenida en los andenes asignados.</div>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item" data-category="equipaje">
+                    <button class="faq-header-trigger" type="button">
+                        ¿Qué equipaje está incluido en mi pasaje?
+                        <span class="faq-arrow-icon">▼</span>
+                    </button>
+                    <div class="faq-body-dropdown">
+                        <div>Tu pasaje incluye un bolso de mano en cabina de hasta 5 kg y una pieza grande en bodega de hasta 15 kg. Las cajas de vino compradas en la terminal requieren empaque de protección térmica homologado para su despacho seguro.</div>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item" data-category="servicio">
+                    <button class="faq-header-trigger" type="button">
+                        ¿Cómo funciona la selección de vinos a bordo del servicio Premium?
+                        <span class="faq-arrow-icon">▼</span>
+                    </button>
+                    <div class="faq-body-dropdown">
+                        <div>Durante la cena gourmet provista en las unidades Cama Suite, nuestro personal ofrece una carta de selección rotativa con varietales de bodegas destacadas de Mendoza y San Juan sin costo adicional.</div>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item" data-category="boleto">
+                    <button class="faq-header-trigger" type="button">
+                        ¿Puedo comprar boletos online y presentarlos en el celular?
+                        <span class="faq-arrow-icon">▼</span>
+                    </button>
+                    <div class="faq-body-dropdown">
+                        <div>¡Totalmente! Terminal BA promueve el boleto ecológico. Podés abordar mostrando el código QR desde tu correo electrónico o billetera digital directamente al chofer junto con tu DNI físico vigente.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- FOOTER -->
         <footer>
             <span>© 2026 Terminal de Ómnibus de Buenos Aires · <a href="#">Logic Solutions</a></span>
@@ -407,6 +472,50 @@ function actualizarMapa() {
     document.getElementById('mapa-' + (mapaActual + 1)).classList.add('active');
     document.querySelectorAll('.mapa-dot')[mapaActual].classList.add('active');
 }
+
+function toggleFaqItem(button) {
+    const item = button.closest('.faq-accordion-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-accordion-item').forEach(node => node.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+}
+
+function filterFaqs(category = 'all', query = '') {
+    const normalizedQuery = query.trim().toLowerCase();
+    const items = document.querySelectorAll('.faq-accordion-item');
+    let visibleCount = 0;
+
+    items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        const matchesCategory = category === 'all' || item.dataset.category === category;
+        const matchesSearch = !normalizedQuery || text.includes(normalizedQuery);
+        const shouldShow = matchesCategory && matchesSearch;
+
+        item.style.display = shouldShow ? 'block' : 'none';
+        if (shouldShow) visibleCount += 1;
+    });
+}
+
+function setActiveFaqFilter(button) {
+    document.querySelectorAll('.filter-pill-btn').forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+    filterFaqs(button.dataset.category || 'all', document.getElementById('faqSearchInput').value);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.faq-header-trigger').forEach(button => {
+        button.addEventListener('click', () => toggleFaqItem(button));
+    });
+
+    document.querySelectorAll('.filter-pill-btn').forEach(button => {
+        button.addEventListener('click', () => setActiveFaqFilter(button));
+    });
+
+    document.getElementById('faqSearchInput').addEventListener('input', event => {
+        const activeFilter = document.querySelector('.filter-pill-btn.active');
+        filterFaqs(activeFilter ? activeFilter.dataset.category : 'all', event.target.value);
+    });
+});
 </script>
 </body>
 </html>
