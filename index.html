@@ -237,11 +237,11 @@
 
                 <div class="faq-accordion-item" data-category="servicio">
                     <button class="faq-header-trigger" type="button">
-                        ¿Cómo funciona la selección de vinos a bordo del servicio Premium?
+                        ¿Cómo funciona el servicio Premium?
                         <span class="faq-arrow-icon">▼</span>
                     </button>
                     <div class="faq-body-dropdown">
-                        <div>Durante la cena gourmet provista en las unidades Cama Suite, nuestro personal ofrece una carta de selección rotativa con varietales de bodegas destacadas de Mendoza y San Juan sin costo adicional.</div>
+                        <div>Se ofrece unidades de Cama Suite junto con una cena gourmet provista en las unidades, adicional a ello nuestro personal ofrece una carta de selección rotativa de vinos con varietales de bodegas destacadas de Mendoza y San Juan sin costo adicional.</div>
                     </div>
                 </div>
 
@@ -260,7 +260,7 @@
         <!-- FOOTER -->
         <footer>
             <span>© 2026 Terminal de Ómnibus de Buenos Aires · <a href="#">Logic Solutions</a></span>
-            <span><a href="servicios.html">Servicios</a> · <a href="viajes.html">Viajes</a> · <a href="#">Contacto</a></span>
+            <span><a href="servicios.html">Servicios</a> · <a href="viajes.html">Viajes</a> · <a href="contacto.html">Contacto</a></span>
         </footer>
     </main>
 </div>
@@ -275,6 +275,48 @@
         if (!destino) { alert('Por favor ingresá un destino.'); return; }
         window.location.href = `viajes.html?destino=${encodeURIComponent(destino)}&fecha=${fecha}`;
     }
+
+    function toggleFaqItem(button) {
+        const item = button.closest('.faq-accordion-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-accordion-item').forEach(node => node.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
+
+    function filterFaqs(category = 'all', query = '') {
+        const normalizedQuery = query.trim().toLowerCase();
+        const items = document.querySelectorAll('.faq-accordion-item');
+        items.forEach(item => {
+            const text = item.innerText.toLowerCase();
+            const matchesCategory = category === 'all' || item.dataset.category === category;
+            const matchesSearch = !normalizedQuery || text.includes(normalizedQuery);
+            item.style.display = matchesCategory && matchesSearch ? 'block' : 'none';
+        });
+    }
+
+    function setActiveFaqFilter(button) {
+        document.querySelectorAll('.filter-pill-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        filterFaqs(button.dataset.category || 'all', document.getElementById('faqSearchInput').value);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.faq-header-trigger').forEach(button => {
+            button.addEventListener('click', () => toggleFaqItem(button));
+        });
+
+        document.querySelectorAll('.filter-pill-btn').forEach(button => {
+            button.addEventListener('click', () => setActiveFaqFilter(button));
+        });
+
+        const faqInput = document.getElementById('faqSearchInput');
+        if (faqInput) {
+            faqInput.addEventListener('input', event => {
+                const activeFilter = document.querySelector('.filter-pill-btn.active');
+                filterFaqs(activeFilter ? activeFilter.dataset.category : 'all', event.target.value);
+            });
+        }
+    });
 </script>
 </body>
 </html>
